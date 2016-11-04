@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @article.name %></h2>
+
+<div id="article" data-id="<%= @article.id %>">
+  <%= simple_format @article.content %>
+  
+  <p><%= link_to 'Back to Articles', articles_path %></p>
+
+  <% unless @article.comments.empty? %>
+    <h3><%= pluralize(@article.comments.size, 'Comment') %></h3>
+  <% end %>
+
+  <div id="comments">
+    <% @article.comments.each do |comment| %>
+        <div class="comment" data-time="<%= comment.created_at.to_i %>">
+          <strong><%= comment.name %></strong>
+          <em>on <%= comment.created_at.strftime('%b %d, %Y at %I:%M %p') %></em>
+          <p><%= comment.content %></p>
+        </div>
+    <% end %>
+  </div>
+
+  <h3>Add a comment:</h3>
+
+  <%= render partial: 'comments/form' %>
+
+
+
+</div>
